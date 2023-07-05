@@ -99,3 +99,7 @@ body {
   cursor: pointer;
   /*outline: none; doesn't work for some reason*/
 }
+
+.completed {
+  text-decoration: line-through;
+}
