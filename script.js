@@ -7,7 +7,18 @@ document.querySelector("#push").onclick = function () {
         <span id="taskname">
             ${document.querySelector("#newtask input").value}
         </span>
+        <button class="delete">
+        del <!--add icon here-->
+        </button> 
         </div>
     `;
+
+    var current_tasks = document.querySelectorAll(".delete");
+
+    for (var i = 0; i < current_tasks.length; i++) {
+      current_tasks[i].onclick = function () {
+        this.parentNode.remove();
+      };
+    }
   }
 };
