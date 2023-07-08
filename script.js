@@ -6,8 +6,10 @@ function displayDate() {
     date[1] + " " + date[2] + " " + date[3];
 }
 
+/*run functions when loading */
 window.onload = function () {
   displayDate();
+  displayItems();
   console.log(itemsArray);
 };
 
@@ -19,45 +21,53 @@ document.querySelector("#push").onclick = function () {
   if (document.querySelector("#newtask input").value.length == 0) {
     alert("Please Enter a Task");
   } else {
-    /*add the task html to the page */
-    document.querySelector("#tasks").innerHTML += `
-        <div class="task"
-        <span id="taskname">
-            ${document.querySelector("#newtask input").value}
-        </span>
-        <button class="delete">
-        del <!--add icon here-->
-        </button> 
-        </div>
-    `;
     /*add the item to the local storage array */
     createItem(document.querySelector("#newtask input"));
 
     /* clears the tasks input*/
     document.querySelector("#newtask input").value = "";
 
-    /*deletes task */
-    var current_tasks = document.querySelectorAll(".delete");
-    for (var i = 0; i < current_tasks.length; i++) {
-      current_tasks[i].onclick = function () {
-        this.parentNode.remove();
-      };
-    }
-
     var tasks = document.querySelectorAll(".task");
 
-    /*marks as done */
-    for (var i = 0; i < tasks.length; i++) {
-      tasks[i].onclick = function () {
-        this.classList.toggle(
-          "completed"
-        ); /* since this applies a line-through to all texts it also does it to the del button. will be fixed once it's switched into an icon*/
-      };
-    }
+    /*reloads the list */
+    displayItems();
   }
 };
 
 function createItem(item) {
   itemsArray.push(item.value);
   localStorage.setItem("items", JSON.stringify(itemsArray));
+  //location.reload();
+}
+
+function displayItems() {
+  let items = "";
+  for (let i = 0; i < itemsArray.length; i++) {
+    const currentItem = `
+    <div class="task"
+    <span id="taskname">
+        ${itemsArray[i]}
+    </span>
+    <button class="delete">
+    del <!--add icon here-->
+    </button> 
+    </div>`;
+    items += currentItem;
+  }
+  document.querySelector("#tasks").innerHTML = `<div>${items}</div>`;
+
+  const deleteButtons = document.querySelectorAll(".delete");
+  deleteButtons.forEach((button) => {
+    button.addEventListener("click", deleteTask);
+  });
+}
+
+function deleteTask(event) {
+  const button = event.target;
+  const taskDiv = button.parentNode;
+  const taskIndex = button.dataset.index;
+
+  taskDiv.remove();
+  // Remove the corresponding task from the itemsArray
+  itemsArray.splice(taskIndex, 1);
 }
