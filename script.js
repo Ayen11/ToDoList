@@ -8,7 +8,7 @@ function displayDate() {
 
 /*run functions when loading */
 window.onload = function () {
-  displayDate();
+  //displayDate();
   displayItems();
   console.log(itemsArray);
 };
@@ -44,14 +44,16 @@ function displayItems() {
   let items = "";
   for (let i = 0; i < itemsArray.length; i++) {
     const currentItem = `
-    <div class="task"
+    <div class="task">
+    
     <span id="taskname">
-        ${itemsArray[i]}
+      ${itemsArray[i]}
     </span>
-    <button class="delete">
-    del <!--add icon here-->
+    <input type="number" class="task-number" data-index="${i}" placeholder="0">
+    <button class="delete" data-index="${i}">
+      del
     </button> 
-    </div>`;
+  </div>`;
     items += currentItem;
   }
   document.querySelector("#tasks").innerHTML = `<div>${items}</div>`;

@@ -100,6 +100,17 @@ body {
   /*outline: none; doesn't work for some reason*/
 }
 
+.task-number {
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 5px;
+  margin-right: 10px;
+  width: 60px;
+  border: 1px solid #d1d3d4;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
 .completed {
   text-decoration: line-through;
 }
