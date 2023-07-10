@@ -14,7 +14,7 @@ window.onload = function () {
   console.log(itemsArray);
 };
 
-const itemsArray = localStorage.getItem("items")
+let itemsArray = localStorage.getItem("items")
   ? JSON.parse(localStorage.getItem("items"))
   : [];
 
@@ -96,7 +96,7 @@ function loadFromLocalStorage() {
 function updateTaskNumber(event) {
   const input = event.target;
   const taskIndex = input.dataset.index;
-  const taskNumber = inputValue;
+  const taskNumber = input.value;
   itemsArray[taskIndex] = `${taskNumber} ${itemsArray[taskIndex]}`;
   saveToLocalStorage();
 }
