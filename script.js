@@ -52,13 +52,14 @@ function displayItems() {
   for (let i = 0; i < itemsArray.length; i++) {
     const currentItem = `
     <div class="task">
+    <button class="delete" data-index="${i}">
+    del
+  </button> 
       <span class="task-name">
         ${itemsArray[i].taskName}
       </span>
       <input type="number" class="task-number" data-index="${i}" placeholder="0" value="${itemsArray[i].taskNumber}">
-      <button class="delete" data-index="${i}">
-        del
-      </button> 
+
     </div>`;
     items += currentItem;
   }

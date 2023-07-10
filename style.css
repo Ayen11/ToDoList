@@ -13,8 +13,8 @@ body {
 
 .container {
   border: 2px solid white;
-  width: 40%;
-  min-width: 450px;
+  width: 90%;
+  max-width: 450px;
   position: absolute;
   transform: translate(-50%, -50%);
   top: 50%;
@@ -24,13 +24,16 @@ body {
 
 #newtask {
   background-color: #ffffff;
-  padding: 30px, 20px;
+  padding: 20px;
   border-radius: 5px;
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
+
 #newtask input {
-  width: 70%;
-  width: 70%;
+  flex: 1;
   height: 45px;
   font-family: "Poppins", sans-serif;
   font-size: 15px;
@@ -40,6 +43,7 @@ body {
   font-weight: 500;
   position: relative;
   border-radius: 5px;
+  margin-right: 10px;
 }
 
 #newtask input:focus {
@@ -48,9 +52,7 @@ body {
 }
 
 #newtask button {
-  position: relative;
-  float: right;
-  width: 20%;
+  width: 120px;
   height: 45px;
   border-radius: 5px;
   font-family: "Poppins", sans-serif;
@@ -62,9 +64,17 @@ body {
   cursor: pointer;
 }
 
+#push {
+  margin-right: 10px;
+}
+
+#export {
+  background-color: #5cb85c;
+}
+
 #tasks {
   background-color: #ffffff;
-  padding: 30px 20px;
+  padding: 20px;
   margin-top: 60px;
   border-radius: 10px;
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
@@ -85,7 +95,7 @@ body {
 
 .task span {
   font-family: "Poppins", sans-serif;
-  font-size: 15px;
+  font-size: 25px;
   font-weight: 400;
 }
 
@@ -111,6 +121,43 @@ body {
   border-radius: 5px;
   box-sizing: border-box;
 }
+
 .completed {
   text-decoration: line-through;
+}
+
+@media only screen and (max-width: 480px) {
+  .container {
+    width: 90%;
+    min-width: unset;
+    margin-top: 20px;
+    padding: 20px;
+  }
+
+  #newtask {
+    padding: 10px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #newtask input {
+    width: 100%;
+    margin-bottom: 10px;
+    flex-shrink: 0;
+  }
+
+  #newtask button {
+    width: 100%;
+    margin-bottom: 10px;
+    flex-shrink: 0;
+  }
+
+  #push {
+    margin-bottom: 0; /* Add this line to remove margin-bottom */
+  }
+
+  .task span {
+    font-size: 5vmin;
+    flex-shrink: 2;
+  }
 }
