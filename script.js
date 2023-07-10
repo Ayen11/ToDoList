@@ -36,9 +36,14 @@ document.querySelector("#push").onclick = function () {
 };
 
 function createItem(item) {
-  itemsArray.push(item.value);
+  const newItem = {
+    taskName: item.value,
+    taskNumber: "",
+  };
+  itemsArray.push(newItem);
   localStorage.setItem("items", JSON.stringify(itemsArray));
-  //location.reload();
+  document.querySelector("#newtask input").value = ""; //clear the input field
+  displayItems();
 }
 
 //loops thru the items array and creates HTML for each task
@@ -47,15 +52,14 @@ function displayItems() {
   for (let i = 0; i < itemsArray.length; i++) {
     const currentItem = `
     <div class="task">
-    
-    <span id="taskname">
-      ${itemsArray[i]}
-    </span>
-    <input type="number" class="task-number" data-index="${i}" placeholder="0">
-    <button class="delete" data-index="${i}">
-      del
-    </button> 
-  </div>`;
+      <span class="task-name">
+        ${itemsArray[i].taskName}
+      </span>
+      <input type="number" class="task-number" data-index="${i}" placeholder="0" value="${itemsArray[i].taskNumber}">
+      <button class="delete" data-index="${i}">
+        del
+      </button> 
+    </div>`;
     items += currentItem;
   }
   document.querySelector("#tasks").innerHTML = `<div>${items}</div>`;
@@ -97,7 +101,7 @@ function updateTaskNumber(event) {
   const input = event.target;
   const taskIndex = input.dataset.index;
   const taskNumber = input.value;
-  itemsArray[taskIndex] = `${taskNumber} ${itemsArray[taskIndex]}`;
+  itemsArray[taskIndex].taskNumber = taskNumber;
   saveToLocalStorage();
 }
 
@@ -119,9 +123,23 @@ function getTaskNumbers() {
   return taskNumbers;
 }
 
-function setTaskNumbers(taskNumbers) {
+function setTaskNumbers() {
   const taskNumberInputs = document.querySelectorAll(".task-number");
   taskNumberInputs.forEach((input, index) => {
-    input.value = taskNumbers[index];
+    itemsArray[index].taskNumber = input.value;
   });
 }
+
+function exportTasks() {
+  let textOutput = "";
+
+  for (let i = 0; i < itemsArray.length; i++) {
+    const taskName = itemsArray[i].taskName;
+    const taskNumber = itemsArray[i].taskNumber;
+
+    textOutput += `${taskName}: ${taskNumber}\n`;
+
+    console.log(textOutput);
+  }
+}
+
