@@ -105,8 +105,23 @@ function deleteTask(event) {
   const button = event.target;
   const taskDiv = button.parentNode;
   const taskIndex = button.dataset.index;
-
   taskDiv.remove();
   // Remove the corresponding task from the itemsArray
   itemsArray.splice(taskIndex, 1);
+  saveToLocalStorage();
+}
+
+function getTaskNumbers() {
+  const taskNumberInputs = document.querySelectorAll(".task-number");
+  const taskNumbers = Array.from(taskNumberInputs).map((input) =>
+    input.value.trim()
+  );
+  return taskNumbers;
+}
+
+function setTaskNumbers(taskNumbers) {
+  const taskNumberInputs = document.querySelectorAll(".task-number");
+  taskNumberInputs.forEach((input, index) => {
+    input.value = taskNumbers[index];
+  });
 }
