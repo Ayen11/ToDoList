@@ -157,7 +157,7 @@ body {
   }
 
   .task span {
-    font-size: 5vmin;
+    font-size: 6vmin;
     flex-shrink: 2;
   }
 }
