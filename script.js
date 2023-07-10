@@ -135,11 +135,15 @@ function exportTasks() {
 
   for (let i = 0; i < itemsArray.length; i++) {
     const taskName = itemsArray[i].taskName;
-    const taskNumber = itemsArray[i].taskNumber;
-
-    textOutput += `${taskName}: ${taskNumber}\n`;
-
-    console.log(textOutput);
+    const taskNumber =
+      itemsArray[i].taskNumber !== "" ? itemsArray[i].taskNumber : 0;
+    // Append task name and number to the text output
+    textOutput += `${taskName} ${taskNumber}\n`;
   }
+  navigator.clipboard.writeText(textOutput);
+  console.log(textOutput);
 }
 
+document.querySelector("#export").onclick = function () {
+  exportTasks();
+};
