@@ -9,7 +9,8 @@ function displayDate() {
 /*run functions when loading */
 window.onload = function () {
   //displayDate();
-  displayItems();
+  //displayItems();
+  loadFromLocalStorage();
   console.log(itemsArray);
 };
 
@@ -40,6 +41,7 @@ function createItem(item) {
   //location.reload();
 }
 
+//loops thru the items array and creates HTML for each task
 function displayItems() {
   let items = "";
   for (let i = 0; i < itemsArray.length; i++) {
@@ -58,10 +60,45 @@ function displayItems() {
   }
   document.querySelector("#tasks").innerHTML = `<div>${items}</div>`;
 
+  // Add event listeners to delete buttons
   const deleteButtons = document.querySelectorAll(".delete");
   deleteButtons.forEach((button) => {
     button.addEventListener("click", deleteTask);
   });
+
+  //add event listeners to number inputs
+  const taskNumberInputs = document.querySelectorAll(".task-number");
+  taskNumberInputs.forEach((input) => {
+    input.addEventListener("input", updateTaskNumber);
+  });
+
+  saveToLocalStorage();
+}
+
+function saveToLocalStorage() {
+  const tasksData = {
+    tasks: itemsArray,
+    numbers: getTaskNumbers(),
+  };
+  localStorage.setItem("tasksData", JSON.stringify(tasksData));
+}
+
+function loadFromLocalStorage() {
+  const savedData = localStorage.getItem("tasksData");
+  if (savedData) {
+    const tasksData = JSON.parse(savedData);
+    itemsArray = tasksData.tasks;
+    displayItems();
+    setTaskNumbers(tasksData.numbers);
+  }
+}
+
+function updateTaskNumber(event) {
+  const input = event.target;
+  const taskIndex = input.dataset.index;
+  const taskNumber = inputValue;
+  itemsArray[taskIndex] = `${taskNumber} ${itemsArray[taskIndex]}`;
+  saveToLocalStorage();
 }
 
 function deleteTask(event) {
