@@ -80,6 +80,9 @@ body {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
   width: 100%;
   position: relative;
+  height: 400px;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
 .task {
@@ -144,7 +147,7 @@ body {
     width: 100%;
     margin-bottom: 10px;
     flex-shrink: 0;
-    font-size: 1vmin;
+    font-size: 5vmin;
   }
 
   #newtask button {
@@ -160,5 +163,11 @@ body {
   .task span {
     font-size: 6vmin;
     flex-shrink: 2;
+  }
+
+  #tasks {
+    height: 250px;
+    overflow: hidden;
+    overflow-y: scroll;
   }
 }
