@@ -133,7 +133,7 @@ body {
   .container {
     width: 90%;
     min-width: unset;
-    margin-top: 20px;
+    margin-top: 0px;
     padding: 20px;
   }
 
@@ -161,13 +161,18 @@ body {
   }
 
   .task span {
-    font-size: 6vmin;
+    font-size: 5vmin;
     flex-shrink: 2;
   }
 
   #tasks {
-    height: 250px;
+    height: 270px;
     overflow: hidden;
     overflow-y: scroll;
+    margin-top: 30px;
+  }
+
+  .task {
+    height: 40px;
   }
 }
