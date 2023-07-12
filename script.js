@@ -51,27 +51,18 @@ function createItem(taskName, taskMaxNumber) {
 function displayItems() {
   let items = "";
   for (let i = 0; i < itemsArray.length; i++) {
-    const task = itemsArray[i];
-    const taskName = task.taskName;
-    const taskNumber = task.taskNumber;
-    const taskMaxNumber = task.taskMaxNumber;
-
     const currentItem = `
     <div class="task">
         <button class="delete" data-index="${i}">
           del
         </button>
         <span class="task-name">
-          ${taskName}
+          ${itemsArray[i].taskName}
         </span>
         <span class="task-number">
-          ${taskNumber}
+          ${itemsArray[i].taskNumber}
         </span>
-        ${
-          taskMaxNumber !== undefined && taskMaxNumber > 0
-            ? `<span class="task-max-number">(Max: ${taskMaxNumber})</span>`
-            : ""
-        }
+        ${itemsArray[i].taskMaxNumber}
       </div>`;
     items += currentItem;
   }
