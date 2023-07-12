@@ -24,22 +24,24 @@ document.querySelector("#push").onclick = function () {
     .filter((item) => item !== "");
 
   if (tasks.length === 0) {
-    alert("please enter a task");
+    alert("please enter a task.");
     return;
   }
 
   tasks.forEach((task) => {
-    createItem(task);
+    const [taskName, taskMaxNumber] = task.split(" ");
+    createItem(taskName, parseInt(taskMaxNumber, 10));
   });
 
   document.querySelector("#newTaskInput").value = "";
   displayItems();
 };
 
-function createItem(item) {
+function createItem(taskName, taskMaxNumber) {
   const newItem = {
-    taskName: item,
+    taskName: taskName,
     taskNumber: 0,
+    taskMaxNumber: taskMaxNumber,
   };
   itemsArray.push(newItem);
   saveToLocalStorage();
@@ -49,17 +51,28 @@ function createItem(item) {
 function displayItems() {
   let items = "";
   for (let i = 0; i < itemsArray.length; i++) {
+    const task = itemsArray[i];
+    const taskName = task.taskName;
+    const taskNumber = task.taskNumber;
+    const taskMaxNumber = task.taskMaxNumber;
+
     const currentItem = `
     <div class="task">
-    <button class="delete" data-index="${i}">
-    del
-  </button> 
-      <span class="task-name">
-        ${itemsArray[i].taskName}
-      </span>
-      <input type="number" class="task-number" data-index="${i}" placeholder="0" value="${itemsArray[i].taskNumber}">
-
-    </div>`;
+        <button class="delete" data-index="${i}">
+          del
+        </button>
+        <span class="task-name">
+          ${taskName}
+        </span>
+        <span class="task-number">
+          ${taskNumber}
+        </span>
+        ${
+          taskMaxNumber !== undefined && taskMaxNumber > 0
+            ? `<span class="task-max-number">(Max: ${taskMaxNumber})</span>`
+            : ""
+        }
+      </div>`;
     items += currentItem;
   }
   document.querySelector("#tasks").innerHTML = `<div>${items}</div>`;
@@ -70,7 +83,7 @@ function displayItems() {
     button.addEventListener("click", deleteTask);
   });
 
-  //add event listeners to number inputs
+  // Add event listeners to number inputs
   const taskNumberInputs = document.querySelectorAll(".task-number");
   taskNumberInputs.forEach((input) => {
     input.addEventListener("input", updateTaskNumber);
