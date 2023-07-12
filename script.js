@@ -17,31 +17,32 @@ let itemsArray = localStorage.getItem("items")
   : [];
 
 document.querySelector("#push").onclick = function () {
-  if (document.querySelector("#newtask input").value.length == 0) {
-    alert("Please Enter a Task");
-  } else {
-    /*add the item to the local storage array */
-    createItem(document.querySelector("#newtask input"));
+  const input = document.querySelector("#newTaskInput").value;
+  const tasks = input
+    .split("\n")
+    .map((item) => item.trim())
+    .filter((item) => item !== "");
 
-    /* clears the tasks input*/
-    document.querySelector("#newtask input").value = "";
-
-    var tasks = document.querySelectorAll(".task");
-
-    /*reloads the list */
-    displayItems();
+  if (tasks.length === 0) {
+    alert("please enter a task");
+    return;
   }
+
+  tasks.forEach((task) => {
+    createItem(task);
+  });
+
+  document.querySelector("#newTaskInput").value = "";
+  displayItems();
 };
 
 function createItem(item) {
   const newItem = {
-    taskName: item.value,
-    taskNumber: "",
+    taskName: item,
+    taskNumber: 0,
   };
   itemsArray.push(newItem);
-  localStorage.setItem("items", JSON.stringify(itemsArray));
-  document.querySelector("#newtask input").value = ""; //clear the input field
-  displayItems();
+  saveToLocalStorage();
 }
 
 //loops thru the items array and creates HTML for each task
