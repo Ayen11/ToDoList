@@ -1,4 +1,4 @@
-/*display date */
+/*display date UNUSED*/
 function displayDate() {
   let date = new Date();
   date = date.toString().split(" ");
@@ -8,8 +8,6 @@ function displayDate() {
 
 /*run functions when loading */
 window.onload = function () {
-  //displayDate();
-  //displayItems();
   loadFromLocalStorage();
   console.log(itemsArray);
 };
