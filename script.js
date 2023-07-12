@@ -59,9 +59,7 @@ function displayItems() {
         <span class="task-name">
           ${itemsArray[i].taskName}
         </span>
-        <span class="task-number">
-          ${itemsArray[i].taskNumber}
-        </span>
+        <input type="number" class="task-number" data-index="${i}" placeholder="0" value="${itemsArray[i].taskNumber}">
         ${itemsArray[i].taskMaxNumber}
       </div>`;
     items += currentItem;
@@ -113,10 +111,10 @@ function deleteTask(event) {
   const button = event.target;
   const taskDiv = button.parentNode;
   const taskIndex = button.dataset.index;
-  taskDiv.remove();
   // Remove the corresponding task from the itemsArray
   itemsArray.splice(taskIndex, 1);
-  saveToLocalStorage();
+  saveToLocalStorage(); // Save the updated itemsArray first
+  taskDiv.remove();
 }
 
 function getTaskNumbers() {
